@@ -1,0 +1,24 @@
+table:
+  name: files
+  schema: storage
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - id
+    - created_at
+    - name
+    - size
+    - uploaded_by_ip_address
+  role: public
+select_permissions:
+- permission:
+    columns:
+    - id
+    - created_at
+    - name
+    - size
+    - uploaded_by_ip_address
+    filter: {}
+  role: public

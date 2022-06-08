@@ -1,16 +1,17 @@
 import { migrate } from "postgres-migrations";
-import { Client } from "pg";
+import pg  from "pg";
     
 export async function applyMigrations(): Promise<void> {    
-  const client = new Client({
+  const dbConfig = {
   connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
+    // ssl: {
+    //   rejectUnauthorized: false
+    // }
+  };
+  const client = new pg.Client(dbConfig);
   try {
     await client.connect();
-    await migrate({ client }, "./hasura/migrations");
+    await migrate({ client }, "./migrations");
   }
   finally {
     await client.end();

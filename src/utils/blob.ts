@@ -42,7 +42,7 @@ export async function downloadObject() {
     blobUrl,
     new StorageSharedKeyCredential(process.env.ACCOUNT_NAME, process.env.BLOB_ACCESS_KEY)
   );
-  const object = await blockBlobClient.getProperties.promise();
+  const object = await blockBlobClient.getProperties;
 
   if (!object.Body) {
     throw new Error("Object not found");

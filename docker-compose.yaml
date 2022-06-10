@@ -5,18 +5,18 @@ services:
     volumes:
       - ./docker/data/db:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secretpgpassword}
+      POSTGRES_PASSWORD: secretpgpassword
     ports:
       - '5432:5432'
   graphql-engine:
-    image: hasura/graphql-engine:v2.2.0
+    image: hasura/graphql-engine:v2.7.0
     depends_on:
       - postgres
     restart: always
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-secretpgpassword}@postgres:5432/postgres
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
-      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:secretpgpassword@postgres:5432/postgres
+      HASURA_GRAPHQL_ADMIN_SECRET: storage-token-secret
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: admin
       HASURA_GRAPHQL_LOG_LEVEL: debug
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true'
     ports:

@@ -13,8 +13,8 @@ const server = fastify({ trustProxy: true });
 
 server.register(fastifyMultipart);
 
-server.get("/healthz", (req: any, res: any) => {
-  res.code(200).send({ healthz: "ok" });
+server.get("/health", (req: any, res: any) => {
+  res.code(200).send({ health: "ok" });
 });
 
 server.post("/upload", async (req: any, res: any) => {
@@ -45,7 +45,7 @@ server.post("/upload", async (req: any, res: any) => {
 
   const fileId = dbRes.insert_storage_files_one.id;
 
-  // upload to S3
+  // upload to blob storage
   const filepath = `${fileId}/${fileName}`;
   const uploadResult = await uploadObject(filepath,file);
 
@@ -139,7 +139,7 @@ server.get("/file-signed/*", async (req: any, res: any) => {
   await applyMigrations();
   await applyMetadata();
 
-  server.listen(5000, "0.0.0.0", (err: any, address: any) => {
+  server.listen(5000, "localhost", (err: any, address: any) => {
     if (err) {
       console.error(err);
       process.exit(1);

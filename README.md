@@ -2,6 +2,10 @@
 
 ## Endpoints
 
+### `/health`
+
+Check Health of endpoint
+
 ### `/upload`
 
 Upload file
